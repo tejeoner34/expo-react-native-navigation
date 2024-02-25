@@ -1,5 +1,6 @@
 {
   "expo": {
+    "backgroundColor": "#3F3025",
     "name": "gourmet-app",
     "slug": "gourmet-app",
     "version": "1.0.0",
