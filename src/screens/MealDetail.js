@@ -1,16 +1,35 @@
-import { StyleSheet, Text, View } from 'react-native';
+import { ScrollView, StyleSheet, Text, View } from 'react-native';
 import { MEALS } from '../../data/data';
+import MealItem from '../components/MealItem';
 
 export default function MealDetail({ route }) {
   const { categoryId } = route.params;
   const mealsToDisplay = MEALS.filter((meal) => meal.categoryIds.includes(categoryId));
   return (
-    <View>
+    <ScrollView contentContainerStyle={styles.container}>
       {mealsToDisplay.map((meal) => (
-        <Text>{meal.title}</Text>
+        <View style={styles.itemContainer} key={meal.id}>
+          <MealItem
+            affordability={meal.affordability}
+            complexity={meal.complexity}
+            title={meal.title}
+            duration={meal.duration}
+            imageUrl={meal.imageUrl}
+          />
+        </View>
       ))}
-    </View>
+    </ScrollView>
   );
 }
 
-const styles = StyleSheet.create({});
+const styles = StyleSheet.create({
+  container: {
+    padding: 24,
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  itemContainer: {
+    width: '90%',
+    paddingBottom: 24,
+  },
+});
