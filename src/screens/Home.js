@@ -5,8 +5,7 @@ import { CATEGORIES } from '../../data/data';
 
 export default function Home({ navigation }) {
   function handleChooseCategory(categoryId) {
-    console.log(categoryId);
-    navigation.navigate('MealDetail', {
+    navigation.navigate('CategoryDetail', {
       categoryId,
     });
   }
