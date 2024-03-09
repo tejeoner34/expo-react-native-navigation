@@ -1,9 +1,16 @@
 import { Image, Pressable, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 import React from 'react';
 
-export default function MealItem({ title, affordability, complexity, duration, imageUrl }) {
+export default function MealItem({
+  title,
+  affordability,
+  complexity,
+  duration,
+  imageUrl,
+  onPress,
+}) {
   return (
-    <TouchableOpacity style={styles.itemContainer}>
+    <TouchableOpacity style={styles.itemContainer} onPress={onPress}>
       <View style={styles.imageContainer}>
         <Image style={{ width: '100%', height: '100%' }} source={{ uri: imageUrl }} />
       </View>

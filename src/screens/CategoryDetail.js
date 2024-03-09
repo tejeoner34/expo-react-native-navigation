@@ -3,7 +3,7 @@ import { CATEGORIES, MEALS } from '../../data/data';
 import MealItem from '../components/MealItem';
 import { useEffect } from 'react';
 
-function renderMealitem(itemData) {
+function renderMealitem(itemData, navigation) {
   const { item: meal } = itemData;
   const mealItemProps = {
     affordability: meal.affordability,
@@ -14,7 +14,14 @@ function renderMealitem(itemData) {
   };
   return (
     <View style={styles.itemContainer}>
-      <MealItem {...mealItemProps} />
+      <MealItem
+        {...mealItemProps}
+        onPress={() =>
+          navigation.navigate('MealDetail', {
+            meal,
+          })
+        }
+      />
     </View>
   );
 }
@@ -34,7 +41,7 @@ export default function CategoryDetail({ route, navigation }) {
     <View style={styles.container}>
       <FlatList
         data={mealsToDisplay}
-        renderItem={renderMealitem}
+        renderItem={(meal) => renderMealitem(meal, navigation)}
         keyExtractor={(meal) => meal.id}
       />
     </View>
