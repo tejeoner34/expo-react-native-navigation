@@ -1,22 +1,32 @@
 import { Image, SafeAreaView, StyleSheet, Text, View } from 'react-native';
-import React, { useLayoutEffect } from 'react';
+import React, { useContext, useLayoutEffect } from 'react';
 import ItemsList from '../components/ItemsList';
 import IconButton from '../components/IconButton';
+import { FavoritesContext } from '../store/favoritesContext';
 
 export default function MealDetail({ navigation, route }) {
-  const { duration, complexity, affordability, ingredients, steps, imageUrl, title } =
+  const { favorites, addFavorite, removeFavorite } = useContext(FavoritesContext);
+  const { duration, complexity, affordability, ingredients, steps, imageUrl, title, id } =
     route.params.meal;
+  const isFavorite = favorites.includes(id);
 
   const mealData = [
     { title: 'Ingredients', data: ingredients },
     { title: 'Steps', data: steps },
   ];
 
+  function handleFavoriteToggle() {
+    const handler = isFavorite ? removeFavorite : addFavorite;
+    handler(id);
+  }
+
   useLayoutEffect(() => {
     navigation.setOptions({
-      headerRight: () => <IconButton />,
+      headerRight: () => (
+        <IconButton isFavorite={isFavorite} onPress={() => handleFavoriteToggle(id)} />
+      ),
     });
-  }, []);
+  }, [isFavorite]);
 
   return (
     <SafeAreaView style={styles.container}>
