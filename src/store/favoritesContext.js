@@ -9,12 +9,12 @@ export const FavoritesContext = createContext({
 export function FavoritesContextProvider({ children }) {
   const [favorites, setFavorites] = useState(useContext(FavoritesContext).favorites);
 
-  function addFavorite(id) {
-    setFavorites((oldValue) => [...oldValue, id]);
+  function addFavorite(meal) {
+    setFavorites((oldValue) => [...oldValue, meal]);
   }
 
-  function removeFavorite(id) {
-    setFavorites((oldValue) => oldValue.filter((favorite) => favorite !== id));
+  function removeFavorite(meal) {
+    setFavorites((oldValue) => oldValue.filter((favorite) => favorite.id !== meal.id));
   }
 
   const value = { favorites, addFavorite, removeFavorite };

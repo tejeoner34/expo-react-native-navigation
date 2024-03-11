@@ -8,7 +8,7 @@ export default function MealDetail({ navigation, route }) {
   const { favorites, addFavorite, removeFavorite } = useContext(FavoritesContext);
   const { duration, complexity, affordability, ingredients, steps, imageUrl, title, id } =
     route.params.meal;
-  const isFavorite = favorites.includes(id);
+  const isFavorite = !!favorites.find((meal) => meal.id === id);
 
   const mealData = [
     { title: 'Ingredients', data: ingredients },
@@ -17,14 +17,12 @@ export default function MealDetail({ navigation, route }) {
 
   function handleFavoriteToggle() {
     const handler = isFavorite ? removeFavorite : addFavorite;
-    handler(id);
+    handler(route.params.meal);
   }
 
   useLayoutEffect(() => {
     navigation.setOptions({
-      headerRight: () => (
-        <IconButton isFavorite={isFavorite} onPress={() => handleFavoriteToggle(id)} />
-      ),
+      headerRight: () => <IconButton isFavorite={isFavorite} onPress={handleFavoriteToggle} />,
     });
   }, [isFavorite]);
 

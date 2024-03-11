@@ -1,15 +1,19 @@
-import { StyleSheet, Text, View } from 'react-native';
-import React, { useContext } from 'react';
+import { StyleSheet, View } from 'react-native';
+import { useContext } from 'react';
 import { FavoritesContext } from '../store/favoritesContext';
+import MealItemList from '../components/MealItemList';
 
 export default function FavoritesScreen() {
   const { favorites } = useContext(FavoritesContext);
-  console.log(favorites);
   return (
-    <View>
-      <Text>FavoritesScreen</Text>
+    <View style={styles.container}>
+      <MealItemList mealsList={favorites} />
     </View>
   );
 }
 
-const styles = StyleSheet.create({});
+const styles = StyleSheet.create({
+  container: {
+    padding: 24,
+  },
+});
