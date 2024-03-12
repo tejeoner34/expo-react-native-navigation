@@ -3,9 +3,13 @@ import React, { useContext, useLayoutEffect } from 'react';
 import ItemsList from '../components/ItemsList';
 import IconButton from '../components/IconButton';
 import { FavoritesContext } from '../store/favoritesContext';
+import { useDispatch, useSelector } from 'react-redux';
+import { addFavorite, removeFavorite } from '../store/redux/favoritesReducer';
 
 export default function MealDetail({ navigation, route }) {
-  const { favorites, addFavorite, removeFavorite } = useContext(FavoritesContext);
+  //   const { favorites, addFavorite, removeFavorite } = useContext(FavoritesContext);
+  const favorites = useSelector((state) => state.favorites);
+  const dispatch = useDispatch();
   const { duration, complexity, affordability, ingredients, steps, imageUrl, title, id } =
     route.params.meal;
   const isFavorite = !!favorites.find((meal) => meal.id === id);
@@ -17,7 +21,7 @@ export default function MealDetail({ navigation, route }) {
 
   function handleFavoriteToggle() {
     const handler = isFavorite ? removeFavorite : addFavorite;
-    handler(route.params.meal);
+    dispatch(handler(route.params.meal));
   }
 
   useLayoutEffect(() => {
