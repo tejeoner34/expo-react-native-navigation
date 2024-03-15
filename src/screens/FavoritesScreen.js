@@ -6,8 +6,7 @@ import { useSelector } from 'react-redux';
 
 export default function FavoritesScreen() {
   //   const { favorites } = useContext(FavoritesContext);
-  const favorites = useSelector((state) => state.favorites);
-  console.log(favorites);
+  const favorites = useSelector((state) => state.favorites.favorites);
   return (
     <View style={styles.container}>
       <MealItemList mealsList={favorites} />

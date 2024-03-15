@@ -8,7 +8,7 @@ import { addFavorite, removeFavorite } from '../store/redux/favoritesReducer';
 
 export default function MealDetail({ navigation, route }) {
   //   const { favorites, addFavorite, removeFavorite } = useContext(FavoritesContext);
-  const favorites = useSelector((state) => state.favorites);
+  const favorites = useSelector((state) => state.favorites.favorites);
   const dispatch = useDispatch();
   const { duration, complexity, affordability, ingredients, steps, imageUrl, title, id } =
     route.params.meal;
@@ -21,7 +21,11 @@ export default function MealDetail({ navigation, route }) {
 
   function handleFavoriteToggle() {
     const handler = isFavorite ? removeFavorite : addFavorite;
-    dispatch(handler(route.params.meal));
+    if (isFavorite) {
+      dispatch(removeFavorite(route.params.meal));
+    } else {
+      dispatch(addFavorite(route.params.meal));
+    }
   }
 
   useLayoutEffect(() => {
